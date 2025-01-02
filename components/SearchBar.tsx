@@ -12,12 +12,18 @@ import { Ionicons } from "@expo/vector-icons";
 const SearchBar = () => {
   const [isVegMode, setIsVegMode] = useState(false);
   const [isModeVisibility, setIsModeVisibility] = useState(false);
+  const [vegPreference, setVegPreference] = useState("");
   const toggleMode = () => {
-    console.log(isVegMode);
-    setIsVegMode(!isVegMode);
-    if (isVegMode) {
-      setIsModeVisibility(true);
-    }
+    setIsVegMode((prevVegMode) => {
+      const newVegMode = !prevVegMode;
+      if (newVegMode) {
+        setIsModeVisibility(true);
+      }
+      return newVegMode;
+    });
+  };
+  const applyPreference = () => {
+    setIsModeVisibility(false);
   };
   const closeModal = () => {
     setIsModeVisibility(false);
@@ -59,25 +65,53 @@ const SearchBar = () => {
               </Text>
               <TouchableOpacity
                 className="flex-row items-center mb-2"
-                onPress={closeModal}
+                onPress={() =>
+                  setVegPreference("Veg dishes from all restaurants")
+                }
               >
-                <Ionicons name="radio-button-on" size={20} color={"green"} />
+                <Ionicons
+                  name={
+                    vegPreference === "Veg dishes from all restaurants"
+                      ? "radio-button-on"
+                      : "radio-button-off"
+                  }
+                  size={20}
+                  color={
+                    vegPreference === "Veg dish from all restaurants"
+                      ? "green"
+                      : "white"
+                  }
+                />
                 <Text className="text-white ml-2">
                   Veg dishes from all restaurants
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 className="flex-row items-center mb-4"
-                onPress={closeModal}
+                onPress={() =>
+                  setVegPreference("Veg dishes from Pure Veg restaurants")
+                }
               >
-                <Ionicons name="radio-button-off" size={20} color={"white"} />
+                <Ionicons
+                  name={
+                    vegPreference === "Veg dishes from Pure Veg restaurants"
+                      ? "radio-button-on"
+                      : "radio-button-off"
+                  }
+                  size={20}
+                  color={
+                    vegPreference === "Veg dishes from Pure Veg restaurants"
+                      ? "green"
+                      : "white"
+                  }
+                />
                 <Text className="text-white ml-2">
                   Veg dishes from Pure Veg restaurants
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 className="bg-green-600 p-3 rounded-lg mt-4"
-                onPress={closeModal}
+                onPress={applyPreference}
               >
                 <Text className="text-white text-center font-bold">Apply</Text>
               </TouchableOpacity>

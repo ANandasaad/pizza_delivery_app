@@ -1,4 +1,7 @@
 import { Text, View } from "react-native";
+import "react-native-get-random-values";
+import "react-native-webview";
+import uuid from "uuid";
 
 export default function Index() {
   return (

@@ -7,10 +7,11 @@ import {
   BottomSheetView,
   useBottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import { Button } from "react-native";
+
 import { FlatList } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import { Colors } from "@/app-example/constants/Colors";
+
+import { router } from "expo-router";
 export type Ref = BottomSheetModal;
 
 const addresses = [
@@ -85,7 +86,7 @@ const BottomSheet = forwardRef<Ref>((props, ref) => {
       //fetch location google api
 
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${GOOGLE_API_KEY}`
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.EXPO_PUBLIC_GOOGLE_API_KEY}`
       );
 
       const data = await response.json();
@@ -162,7 +163,10 @@ const BottomSheet = forwardRef<Ref>((props, ref) => {
               className="px-2"
             />
             <View className="flex-1">
-              <Text className="text-red-500 font-bold">
+              <Text
+                className="text-red-500 font-bold"
+                onPress={() => router.push("/(modal)/location-search")}
+              >
                 Use your current location
               </Text>
               <Text className="text-gray-400 text-xs">{currentLocation}</Text>
