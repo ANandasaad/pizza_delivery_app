@@ -28,8 +28,8 @@ const LocationSearch = () => {
     if (point) {
       setLocation({
         ...location,
-        latitude: point.latitude,
-        longitude: point.longitude,
+        latitude: point.lat,
+        longitude: point.lng,
       });
     }
   };
